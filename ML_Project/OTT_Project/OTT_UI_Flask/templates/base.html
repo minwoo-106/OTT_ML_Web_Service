@@ -6,7 +6,7 @@
     <title>{{ project_name }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script defer src="{{ url_for('static', filename='js/common.js') }}"></script>
@@ -17,13 +17,23 @@
 
     <header class="site-header">
         <div class="shell header-inner">
-            <a class="brand" href="{{ url_for('home') }}" aria-label="홈으로 이동">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="OTT 로고" class="brand-logo">
+            <a class="brand roadsafe-brand" href="{{ url_for('home') }}" aria-label="RoadSafe 홈으로 이동">
+                <span class="brand-mark">RS</span>
+                <span class="brand-copy">
+                    <span class="brand-word">RoadSafe</span>
+                </span>
             </a>
             <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
             <nav class="site-nav" id="siteNav" aria-label="주요 메뉴">
-                <a href="{{ url_for('direct_predict') }}">직접 입력 예측</a>
-                <a href="{{ url_for('existing_predict') }}">기존 유저 예측</a>
+                <a class="nav-link-main" href="{{ url_for('helmet_page') }}">VISION</a>
+                <a class="nav-link-main" href="{{ url_for('llm_page') }}">LLM FineTuning</a>
+                <details class="nav-dropdown">
+                    <summary>ML</summary>
+                    <div class="nav-dropdown-menu">
+                        <a href="{{ url_for('direct_predict') }}">직접 입력 예측</a>
+                        <a href="{{ url_for('existing_predict') }}">기존 유저 예측</a>
+                    </div>
+                </details>
             </nav>
         </div>
     </header>
@@ -33,17 +43,12 @@
     </main>
 
     <footer class="site-footer">
-        <div class="shell footer-inner">
-            <div class="footer-brand">
-                <span class="footer-logo-slot">
-                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="OTT 로고" class="footer-logo">
-                </span>
-                <span class="footer-brand-text">OTT Retention AI</span>
+        <div class="shell footer-inner footer-simple">
+            <div class="footer-brand footer-brand-simple">
+                <span class="footer-brand-text">RoadSafe Project Hub</span>
             </div>
-            <div class="footer-meta">
-                <p>OTT 유저 이탈 방지 및 리텐션 최적화를 위한 생성형 AI 서비스</p>
-                <p>Python · Flask · Oracle DB · Machine Learning</p>
-                <p>© 2026</p>
+            <div class="footer-meta footer-meta-simple">
+                <p>© 2026 RoadSafe</p>
             </div>
         </div>
     </footer>

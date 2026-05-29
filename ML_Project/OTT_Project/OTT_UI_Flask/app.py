@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from flask import Flask, jsonify, render_template, request
+from pathlib import Path
+
+from flask import Flask, jsonify, render_template, request, url_for
 
 try:
     import oracledb
@@ -16,13 +18,17 @@ except ImportError:
 from utils.predictor import get_chart_data, predict_existing_member, predict_manual_input
 
 
+IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".webp"}
+VIDEO_EXTS = {".mp4", ".avi", ".mov", ".mkv"}
+
+
 def create_app() -> Flask:
     app = Flask(__name__)
     app.config["JSON_AS_ASCII"] = False
 
     @app.context_processor
     def inject_globals():
-        return {"project_name": "OTT Retention AI"}
+        return {"project_name": "RoadSafe"}
 
     @app.get("/")
     def home():
@@ -35,6 +41,45 @@ def create_app() -> Flask:
     @app.get("/direct")
     def direct_predict():
         return render_template("direct_predict.html")
+
+    @app.get("/helmet")
+    def helmet_page():
+        return render_template("helmet.html")
+
+    @app.get("/llm")
+    def llm_page():
+        return render_template("llm.html")
+
+    @app.get("/api/helmet/samples")
+    def api_helmet_samples():
+        """헬멧 탐지 페이지에 표시할 예시 이미지/영상 목록."""
+        sample_root = Path(app.static_folder) / "samples" / "helmet"
+        images_dir = sample_root / "images"
+        videos_dir = sample_root / "videos"
+        thumbs_dir = sample_root / "video_thumbnails"
+
+        samples = []
+        for path in sorted(images_dir.glob("*")):
+            if path.is_file() and path.suffix.lower() in IMAGE_EXTS:
+                rel = f"samples/helmet/images/{path.name}"
+                samples.append({
+                    "type": "image",
+                    "label": "예시 이미지",
+                    "url": url_for("static", filename=rel),
+                    "thumbnail_url": url_for("static", filename=rel),
+                })
+
+        for path in sorted(videos_dir.glob("*")):
+            if path.is_file() and path.suffix.lower() in VIDEO_EXTS:
+                thumb = thumbs_dir / f"{path.stem}.jpg"
+                samples.append({
+                    "type": "video",
+                    "label": "예시 영상",
+                    "url": url_for("static", filename=f"samples/helmet/videos/{path.name}"),
+                    "thumbnail_url": url_for("static", filename=f"samples/helmet/video_thumbnails/{thumb.name}") if thumb.exists() else None,
+                })
+
+        return jsonify({"ok": True, "samples": samples})
 
     @app.get("/api/charts/overview")
     def api_charts_overview():

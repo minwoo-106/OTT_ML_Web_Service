@@ -1,137 +1,52 @@
 {% extends "base.html" %}
+
+{% block head %}
+<script defer src="{{ url_for('static', filename='js/home.js') }}"></script>
+{% endblock %}
+
 {% block content %}
-<section class="home-sections" id="homeSections">
-    <section class="home-hero-stage home-panel" aria-label="서비스 소개">
-        <div class="shell home-hero-shell">
-            <div class="home-hero-card home-hero-card--backdrop">
-                <div class="home-hero-copy home-hero-copy--overlay">
-                    <span class="eyebrow">OTT Retention AI</span>
-                    <h1 class="hero-headline"><span>OTT 구독 해지 위험도를</span><span>직관적으로 예측합니다.</span></h1>
-                    <p>기존 회원 예측과 직접 입력 예측으로 이탈 위험도와 판단 근거를 확인할 수 있습니다.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="feature-carousel-section home-panel" aria-label="메인 기능 바로가기">
-        <div class="shell feature-carousel-shell">
-            <div class="feature-carousel hero-carousel" id="featureCarousel">
-                <div class="carousel-track" id="featureCarouselTrack">
-                    <article class="carousel-slide feature-slide">
-                        <div class="feature-slide-card feature-slide-card--direct">
-                            <div class="feature-slide-copy">
-                                <span class="eyebrow">직접 입력 예측</span>
-                                <h2>입력값으로 위험도를<br>바로 확인하세요.</h2>
-                                <p>사용자 정보를 직접 입력하고 예측 결과와 판단 근거를 확인할 수 있습니다.</p>
-                                <div class="hero-actions">
-                                    <a class="btn primary" href="{{ url_for('direct_predict') }}">직접 입력하러 가기</a>
-                                </div>
-                            </div>
+<section class="project-home">
+    <section class="hero-carousel project-hero-carousel" aria-label="RoadSafe 프로젝트 소개">
+        <div class="carousel-track" id="featureCarouselTrack">
+            <article class="carousel-slide project-carousel-slide is-llm-slide">
+                <div class="shell project-hero-shell project-hero-shell-single">
+                    <div class="project-hero-copy project-hero-copy-single">
+                        <span class="eyebrow">LLM FineTuning Project</span>
+                        <h1>교통사고 상황을<br>근거 기반으로 정리하는<br>LLM 프로젝트</h1>
+                        <p>
+                            도로교통법, 생활법령, 과실비율 자료를 바탕으로 사고 상황을 구조화하고,
+                            RAG와 Safety Filter를 결합해 안전한 교통사고 상담형 답변을 제공하는 프로젝트입니다.
+                        </p>
+                        <div class="hero-actions project-hero-actions">
+                            <a class="btn primary project-vision-cta" href="{{ url_for('llm_page') }}">LLM 프로젝트로 이동</a>
                         </div>
-                    </article>
-
-                    <article class="carousel-slide feature-slide">
-                        <div class="feature-slide-card feature-slide-card--existing">
-                            <div class="feature-slide-copy">
-                                <span class="eyebrow">기존 유저 예측</span>
-                                <h2>회원 번호로 기존 유저<br>위험도를 확인하세요.</h2>
-                                <p>저장된 회원 데이터를 불러와 예측 결과와 주요 사유를 한 번에 볼 수 있습니다.</p>
-                                <div class="hero-actions">
-                                    <a class="btn primary" href="{{ url_for('existing_predict') }}">기존 유저 예측하러 가기</a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <button class="carousel-arrow prev" id="featureCarouselPrev" aria-label="이전 슬라이드"><span aria-hidden="true">‹</span></button>
-                <button class="carousel-arrow next" id="featureCarouselNext" aria-label="다음 슬라이드"><span aria-hidden="true">›</span></button>
-
-                <div class="carousel-dots" id="featureCarouselDots" aria-label="기능 선택">
-                    <button class="active" aria-label="직접 입력 예측"></button>
-                    <button aria-label="기존 유저 예측"></button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="chart-board-section home-panel" id="chartPanel">
-        <div class="shell chart-board-shell">
-            <div class="chart-board-card">
-                <div class="chart-board-head">
-                    <div>
-                        <span class="eyebrow">Distribution Overview</span>
-                        <h2>주요 사용자 분포를 확인할 수 있습니다.</h2>
                     </div>
                 </div>
+            </article>
 
-                <div class="chart-accordion-list">
-                    <details class="accordion chart-accordion">
-                        <summary>
-                            <span class="chart-accordion-summary">
-                                <img src="{{ url_for('static', filename='images/chart_risk_ott.svg') }}" alt="" class="chart-item-visual">
-                                <span>
-                                    <strong>전체 사용자 유형</strong>
-                                    <small>전체 사용자 기준 분류 비율</small>
-                                </span>
-                            </span>
-                        </summary>
-                        <div class="chart-accordion-panel">
-                            <div class="chart-wrap chart-wrap-accordion">
-                                <canvas id="homeRiskChart"></canvas>
-                            </div>
-                            <div class="chart-bulk-actions" aria-label="전체 사용자 유형 보기 설정">
-                                <button type="button" class="chart-toggle-btn" id="homeRiskHideAll">전체 숨기기</button>
-                                <button type="button" class="chart-toggle-btn" id="homeRiskShowAll">전체 보기</button>
-                            </div>
+            <article class="carousel-slide project-carousel-slide is-vision-slide">
+                <div class="shell project-hero-shell project-hero-shell-single">
+                    <div class="project-hero-copy project-hero-copy-single">
+                        <span class="eyebrow">YOLO Vision Project</span>
+                        <h1>자전거 헬멧 착용을<br>AI로 탐지하는<br>VISION 프로젝트</h1>
+                        <p>
+                            자전거 사고 위험을 줄이기 위해 이미지와 영상 속 라이더의 헬멧 착용 여부를
+                            YOLO 기반 Vision 모델로 탐지하는 프로젝트입니다.
+                        </p>
+                        <div class="hero-actions project-hero-actions">
+                            <a class="btn primary project-vision-cta" href="{{ url_for('helmet_page') }}">VISION으로 이동</a>
                         </div>
-                    </details>
-
-                    <details class="accordion chart-accordion">
-                        <summary>
-                            <span class="chart-accordion-summary">
-                                <img src="{{ url_for('static', filename='images/chart_fee_ott.svg') }}" alt="" class="chart-item-visual">
-                                <span>
-                                    <strong>월간 결제 비용</strong>
-                                    <small>요금제와 결제 구간 분포</small>
-                                </span>
-                            </span>
-                        </summary>
-                        <div class="chart-accordion-panel">
-                            <div class="chart-wrap chart-wrap-accordion">
-                                <canvas id="homeFeeChart"></canvas>
-                            </div>
-                            <div class="chart-bulk-actions" aria-label="월간 결제 비용 보기 설정">
-                                <button type="button" class="chart-toggle-btn" id="homeFeeHideAll">전체 숨기기</button>
-                                <button type="button" class="chart-toggle-btn" id="homeFeeShowAll">전체 보기</button>
-                            </div>
-                        </div>
-                    </details>
-
-                    <details class="accordion chart-accordion">
-                        <summary>
-                            <span class="chart-accordion-summary">
-                                <img src="{{ url_for('static', filename='images/chart_frequency_ott.svg') }}" alt="" class="chart-item-visual">
-                                <span>
-                                    <strong>이용 분포</strong>
-                                    <small>주요 시청 빈도와 패턴</small>
-                                </span>
-                            </span>
-                        </summary>
-                        <div class="chart-accordion-panel">
-                            <div class="chart-wrap chart-wrap-accordion">
-                                <canvas id="homeFreqChart"></canvas>
-                            </div>
-                            <div class="chart-bulk-actions" aria-label="이용 분포 보기 설정">
-                                <button type="button" class="chart-toggle-btn" id="homeFreqHideAll">전체 숨기기</button>
-                                <button type="button" class="chart-toggle-btn" id="homeFreqShowAll">전체 보기</button>
-                            </div>
-                        </div>
-                    </details>
+                    </div>
                 </div>
-            </div>
+            </article>
+        </div>
+
+        <button class="carousel-arrow prev" id="featureCarouselPrev" type="button" aria-label="이전 프로젝트">‹</button>
+        <button class="carousel-arrow next" id="featureCarouselNext" type="button" aria-label="다음 프로젝트">›</button>
+        <div class="carousel-dots" id="featureCarouselDots" aria-label="프로젝트 슬라이드 선택">
+            <button class="active" type="button" aria-label="LLM FineTuning 프로젝트"></button>
+            <button type="button" aria-label="YOLO Vision 프로젝트"></button>
         </div>
     </section>
 </section>
-<script defer src="{{ url_for('static', filename='js/home.js') }}"></script>
 {% endblock %}

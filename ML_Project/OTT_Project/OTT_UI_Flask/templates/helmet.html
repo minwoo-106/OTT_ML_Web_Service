@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script defer src="{{ url_for('static', filename='js/helmet.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<section class="page-section page-tight-top helmet-page">
+    <div class="shell page-shell wide-shell helmet-shell">
+        <div class="page-hero compact-hero slim-hero helmet-hero">
+            <span class="eyebrow">YOLO11 Helmet Detection</span>
+            <h1>자전거 라이더<br class="helmet-title-break">헬멧 착용 여부 탐지</h1>
+            <p>이미지 또는 영상을 업로드하면 별도 YOLO API 서버가 헬멧 착용 / 미착용 라이더를 분석합니다.</p>
+        </div>
+
+        <section class="glass-card form-card helmet-card">
+            <div class="card-head compact-head">
+                <div>
+                    <h2>파일 업로드</h2>
+                    <p>이미지는 빠르게 분석하고, 영상은 프레임별 분석 방식으로 처리합니다. 영상은 15초 이하의 짧은 파일을 권장합니다.</p>
+                </div>
+            </div>
+
+            <form id="helmetUploadForm" class="helmet-upload-form">
+                <label class="field helmet-file-field">
+                    <span>이미지 / 영상 파일</span>
+                    <input type="file" id="helmetFileInput" name="file" accept="image/*,video/*">
+                </label>
+
+                <div class="form-actions helmet-actions">
+                    <button class="btn primary action-btn action-btn-wide" type="submit" id="helmetPredictBtn">
+                        헬멧 탐지 시작
+                    </button>
+                </div>
+            </form>
+            <p class="helmet-help">영상 분석 결과는 화면용 GIF 미리보기와 전체 결과 영상 파일로 제공합니다.</p>
+        </section>
+
+        <section class="glass-card result-panel hidden helmet-result-panel" id="helmetResultPanel">
+            <div class="section-head helmet-section-head">
+                <div>
+                    <span class="eyebrow">Analysis Result</span>
+                    <h2>헬멧 착용 분석 결과</h2>
+                </div>
+            </div>
+            <div id="helmetResultContent" class="helmet-result-content"></div>
+        </section>
+
+        <section class="glass-card result-panel helmet-card">
+            <div class="section-head helmet-section-head">
+                <div>
+                    <span class="eyebrow">Sample Test Files</span>
+                    <h2>예시 이미지 / 영상</h2>
+                    <p>아래 예시 파일을 선택하면 동일한 REST API 분석 흐름을 확인할 수 있습니다.</p>
+                </div>
+            </div>
+            <div id="helmetSampleGrid" class="helmet-sample-grid">
+                <div class="helmet-empty-message">예시 파일을 불러오는 중입니다.</div>
+            </div>
+        </section>
+    </div>
+</section>
+{% endblock %}
