@@ -1,0 +1,8 @@
+flask
+ultralytics
+opencv-python
+numpy
+imageio
+pillow
+werkzeug
+imageio-ffmpeg
